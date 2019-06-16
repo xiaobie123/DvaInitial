@@ -1,18 +1,15 @@
 import React from 'react';
 import { connect } from 'dva';
-import Layout from '../components/layout/Main';
+import MainIndex from '../components/layout/Main';
 import {injectIntl} from 'react-intl';
 
-const Main = ({routes, dispatch, children, layout, intl}) => {
+const Main = injectIntl((props) => {
+  const {dispatch, children, layout, intl} = props;
   return (
-    <Layout routes={routes} dispatch={dispatch} layout={layout} intl={intl}>
+    <MainIndex dispatch={dispatch} layout={layout} intl={intl}>
       {children}
-    </Layout>
+    </MainIndex>
   );
-};
+});
 
-const mapStateToProps = (state) => {
-  return Object.assign({}, state);
-};
-
-export default connect(mapStateToProps)(injectIntl(Main));
+export default connect(state => state)(props => <Main {...props}/>);
